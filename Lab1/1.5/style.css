@@ -1,0 +1,86 @@
+/* style.css
+   External stylesheet for the Customer Feedback Survey.
+   Demonstrates tag, class, and ID selectors.
+*/
+
+/* =================================
+   Tag Selectors (Broad)
+   ================================= */
+
+/* Base styles for the entire page */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa; /* Light gray background */
+    line-height: 1.6;
+}
+
+/* Style the page header element */
+header {
+    background-color: #0d6efd; /* Bootstrap Primary Blue */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style all form labels for consistency */
+label {
+    font-weight: 500;
+}
+
+/* =================================
+   Class Selectors (Reusable)
+   ================================= */
+
+/* The main container for the form */
+.form-container {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+/* Style the introductory text */
+.survey-intro {
+    font-size: 1.25rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* Add a bit of space between checkbox labels and inputs */
+.form-check-label {
+    margin-left: 0.25rem;
+}
+
+/* =================================
+   ID Selectors (Specific)
+   ================================= */
+
+/* Style the main page heading */
+#page-header {
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+/* Style the main submit button */
+#submit-btn {
+    background-color: #198754; /* Bootstrap Success Green */
+    color: #ffffff;
+    font-weight: 500;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Add a hover effect for the submit button */
+#submit-btn:hover {
+    background-color: #157347; /* Darker green */
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 4px 10px rgba(21, 115, 71, 0.3);
+}
+
+/* Custom focus styles for form inputs */
+.form-control:focus,
+.form-check-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}

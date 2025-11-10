@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback Survey</title>
+    
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Page Header -->
+    <header class="text-center text-white py-5">
+        <h1 id="page-header">We Value Your Feedback</h1>
+        <p class="survey-intro">Please take a moment to complete our survey.</p>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Use Bootstrap grid to center the form -->
+            <div class="col-lg-8 offset-lg-2">
+                
+                <!-- Form Container -->
+                <div class="form-container">
+                    
+                    <!-- Survey Form -->
+                    <form id="survey-form" onsubmit="alert('Thank you for your feedback!'); return false;">
+                        
+                        <!-- Section 1: Contact Info -->
+                        <h5 class="mb-3">Your Information (Optional)</h5>
+                        
+                        <!-- Text Input: Name -->
+                        <div class="mb-3">
+                            <label for="user-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="user-name" placeholder="John Doe">
+                        </div>
+                        
+                        <!-- Text Input: Email -->
+                        <div class="mb-3">
+                            <label for="user-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="user-email" placeholder="john.doe@example.com">
+                        </div>
+                        
+                        <hr class="my-4">
+
+                        <!-- Section 2: Multiple Choice (Checkboxes) -->
+                        <h5 class="mb-3">Which features do you use most?</h5>
+                        <div class="mb-3">
+                            <!-- Checkbox 1 -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="dashboard" id="feature-dashboard">
+                                <label class="form-check-label" for="feature-dashboard">
+                                    Dashboard
+                                </label>
+                            </div>
+                            <!-- Checkbox 2 -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="reports" id="feature-reports">
+                                <label class="form-check-label" for="feature-reports">
+                                    Reporting
+                                </label>
+                            </div>
+                            <!-- Checkbox 3 -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="support" id="feature-support">
+                                <label class="form-check-label" for="feature-support">
+                                    Customer Support
+                                </label>
+                            </div>
+                            <!-- Checkbox 4 -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="api" id="feature-api">
+                                <label class="form-check-label" for="feature-api">
+                                    API Integration
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Feedback (Textarea) -->
+                        <div class="mb-3">
+                            <label for="user-comments" class="form-label">Additional Comments</label>
+                            <textarea class="form-control" id="user-comments" rows="5" placeholder="What can we do to improve?"></textarea>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg" id="submit-btn">Submit Feedback</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple Footer -->
+    <footer class="text-center text-muted py-4">
+        &copy; 2025 Our Company. All rights reserved.
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
