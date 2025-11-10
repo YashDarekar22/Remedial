@@ -1,0 +1,86 @@
+/* --- Main App Layout --- */
+.app-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  width: 90%;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+/* --- Carousel Container --- */
+.carousel-container {
+  /* This is the key! */
+  position: relative; 
+  
+  max-width: 1000px; /* Max width of the carousel */
+  margin: auto;
+  overflow: hidden; /* Hides parts of image if they go outside */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- The Slide (Image) --- */
+.carousel-slide {
+  width: 100%; /* Makes image responsive */
+  display: block; /* Removes any extra space below the image */
+  /* Add a smooth transition when the image src changes
+     Note: This transition doesn't work on src change,
+     we'd need more complex CSS for a 'fade' effect,
+     but this structure is ready for it. */
+}
+
+/* --- Carousel Buttons (Prev/Next) --- */
+.carousel-button {
+  /* This positions the buttons on top of the container */
+  position: absolute; 
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Fine-tunes the vertical centering */
+  
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 24px;
+  line-height: 45px; /* Aligns the arrow vertically */
+  text-align: center;
+  cursor: pointer;
+  z-index: 10; /* Ensures buttons are on top of the image */
+  transition: background-color 0.2s;
+}
+
+.carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-button.prev {
+  left: 15px; /* Position the 'prev' button on the left */
+}
+
+.carousel-button.next {
+  right: 15px; /* Position the 'next' button on the right */
+}
+
+/* --- Media Query for smaller screens --- */
+@media (max-width: 600px) {
+  .carousel-button {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    line-height: 35px;
+  }
+  
+  .carousel-button.prev {
+    left: 10px;
+  }
+  
+  .carousel-button.next {
+    right: 10px;
+  }
+}
