@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-R-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <!-- Load Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom style for error messages */
+        .error-message {
+            color: #ef4444; /* red-500 */
+            font-size: 0.875rem; /* text-sm */
+            margin-top: 0.25rem; /* mt-1 */
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans flex items-center justify-center min-h-full p-4">
+
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Student Registration</h2>
+        
+        <!-- Registration Form -->
+        <form id="registrationForm" novalidate>
+            <!-- Username -->
+            <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                <input type="text" id="username" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <span id="usernameError" class="error-message">Username cannot be empty.</span>
+            </div>
+            
+            <!-- Email -->
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <span id="emailError" class="error-message">Invalid email format. Must be like 'name@abc.com'.</span>
+            </div>
+            
+            <!-- Phone Number -->
+            <div class="mb-4">
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <span id="phoneError" class="error-message">Phone number must be 10 numeric digits.</span>
+            </div>
+            
+            <!-- Password -->
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <span id="passwordError" class="error-message">Password must be at least 7 chars, with one capital, one digit, and one special char (&,$,#,@).</span>
+            </div>
+            
+            <!-- Confirm Password -->
+            <div class="mb-6">
+                <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <span id="confirmPasswordError" class="error-message">Passwords do not match.</span>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200">
+                Register
+            </button>
+        </form>
+    </div>
+
+    <!-- Custom Modal for Success/Error Messages (replaces alert()) -->
+    <div id="messageModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50" style="display: none;">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-sm text-center">
+            <h3 id="modalTitle" class="text-lg font-medium text-gray-900"></h3>
+            <p id="modalMessage" class="mt-2 text-sm text-gray-600"></p>
+            <button id="modalClose" class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript for Validation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registrationForm');
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            const modal = document.getElementById('messageModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalClose = document.getElementById('modalClose');
+
+            // --- Modal Functions ---
+            function showModal(title, message) {
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+                modal.style.display = 'flex';
+            }
+
+            modalClose.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // --- Validation Helper Functions ---
+            function showError(inputElement, message) {
+                const errorElement = document.getElementById(inputElement.id + 'Error');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                inputElement.classList.add('border-red-500', 'focus:ring-red-500');
+                inputElement.classList.remove('focus:ring-blue-500', 'focus:border-blue-500');
+            }
+
+            function clearError(inputElement) {
+                const errorElement = document.getElementById(inputElement.id + 'Error');
+                errorElement.style.display = 'none';
+                inputElement.classList.remove('border-red-500', 'focus:ring-red-500');
+                inputElement.classList.add('focus:ring-blue-500', 'focus:border-blue-500');
+            }
+
+            // --- Form Submit Event Handler ---
+            form.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission
+                let isValid = true;
+
+                // Clear all previous errors
+                clearError(username);
+                clearError(email);
+                clearError(phone);
+                clearError(password);
+                clearError(confirmPassword);
+
+                // 1. Username Validation (Not empty)
+                if (username.value.trim() === '') {
+                    showError(username, 'Username cannot be empty or just spaces.');
+                    isValid = false;
+                }
+
+                // 2. Email Validation (Using regex from user hint)
+                // Regex: few letters, then @, then 3 letters, then ., then 2 or 3 letters
+                const emailRegex = /^[a-zA-Z0-9._+]+@[a-zA-Z0-9]{3}\.[a-zA-Z]{2,3}$/;
+                if (email.value.trim() === '') {
+                    showError(email, 'Email cannot be empty.');
+                    isValid = false;
+                } else if (!emailRegex.test(email.value)) {
+                    showError(email, "Invalid email. Format must be 'name@abc.com' or similar.");
+                    isValid = false;
+                }
+
+                // 3. Phone Number Validation (10 digits only)
+                const phoneRegex = /^\d{10}$/;
+                if (phone.value.trim() === '') {
+                    showError(phone, 'Phone number cannot be empty.');
+                    isValid = false;
+                } else if (!phoneRegex.test(phone.value)) {
+                    showError(phone, 'Phone number must be exactly 10 numeric digits.');
+                    isValid = false;
+                }
+
+                // 4. Password Validation (Length, Capital, Digit, Special Char)
+                // At least 7 chars, 1 capital, 1 digit, 1 special char from [&$#@]
+                const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[&$#@]).{7,}$/;
+                if (password.value.trim() === '') {
+                    showError(password, 'Password cannot be empty.');
+                    isValid = false;
+                } else if (!passwordRegex.test(password.value)) {
+                    showError(password, 'Password must be 7+ chars, with 1 capital, 1 digit, and 1 special char (&,$,#,@).');
+                    isValid = false;
+                }
+
+                // 5. Confirm Password Validation (Must match password)
+                if (confirmPassword.value.trim() === '') {
+                    showError(confirmPassword, 'Please confirm your password.');
+                    isValid = false;
+                } else if (password.value !== confirmPassword.value) {
+                    showError(confirmPassword, 'Passwords do not match.');
+                    isValid = false;
+                }
+
+                // --- Final Check ---
+                if (isValid) {
+                    // All validations passed
+                    showModal('Success!', 'Registration successful.');
+                    form.reset(); // Clear the form
+                } else {
+                    // Show a general error modal
+                    showModal('Validation Error', 'Please correct the errors on the form.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
