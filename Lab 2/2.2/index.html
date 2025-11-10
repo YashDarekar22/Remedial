@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM & jQuery Manipulation</title>
+    <!-- 1. Load jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- 2. Basic Styling -->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h2 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            color: #007bff;
+        }
+        h3 {
+            margin-top: 20px;
+            color: #555;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #messageDisplay {
+            margin-top: 15px;
+            padding: 10px;
+            background: #e6f7ff;
+            border: 1px solid #b3e0ff;
+            border-radius: 4px;
+            display: none; /* Hidden by default */
+        }
+        .highlight-item {
+            background-color: #fff3cd;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+        }
+        #styleChangeElement {
+            position: relative;
+            padding: 10px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+        }
+        #imageToChange {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        #parentNode {
+            border: 2px dashed #007bff;
+            padding: 10px;
+            min-height: 50px;
+            margin-top: 10px;
+        }
+        #nodeToDelete {
+            background: #f8d7da;
+            padding: 5px;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+        }
+        #jqueryBg {
+            height: 150px;
+            width: 100%;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+        }
+        #demoForm input {
+            display: block;
+            margin: 5px 0 10px;
+            padding: 8px;
+            width: calc(100% - 16px);
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>DOM & jQuery Manipulation Demo</h1>
+        <p>This page demonstrates various JavaScript and jQuery operations.</p>
+        <div id="messageDisplay"></div>
+
+        <!-- --------------------------------- -->
+        <!-- PART 1: PLAIN JAVASCRIPT (DOM)    -->
+        <!-- --------------------------------- -->
+        <h2>Part 1: Plain JavaScript (DOM)</h2>
+
+        <!-- Accessing Elements -->
+        <h3>Accessing Elements</h3>
+        <p id="byIdElement">This is accessed by <strong>ID</strong>.</p>
+        <p>This is a paragraph tag (for <strong>TagName</strong> demo).</p>
+        <div class="highlight-item">Item 1 accessed by <strong>ClassName</strong>.</div>
+        <div class="highlight-item">Item 2 accessed by <strong>ClassName</strong>.</div>
+        <button onclick="accessElements()">Access & Highlight Elements</button>
+
+        <!-- Change text with innerHTML -->
+        <h3>Change text with innerHTML</h3>
+        <p id="textChangeElement">Original Text. Click the button to change me.</p>
+        <button onclick="changeText()">Change Text</button>
+
+        <!-- Change CSS properties -->
+        <h3>Change CSS Properties</h3>
+        <div id="styleChangeElement">I will change color and move!</div>
+        <button onclick="changeStyles()">Change Style</button>
+
+        <!-- Change image source -->
+        <h3>Change Image Source</h3>
+        <img id="imageToChange" src="https://placehold.co/150x150/007bff/white?text=Image+1" alt="Placeholder Image 1">
+        <br>
+        <button onclick="changeImage()">Change Image</button>
+
+        <!-- Add a text node -->
+        <h3>Add & Delete Nodes</h3>
+        <div id="parentNode">
+            <p id="nodeToDelete">This is the node to be deleted.</p>
+        </div>
+        <button onclick="addNode()">Add Text Node</button>
+        <button onclick="deleteNode()">Delete Node</button>
+
+        <!-- --------------------------------- -->
+        <!-- PART 2: JQUERY OPERATIONS         -->
+        <!-- --------------------------------- -->
+        <h2>Part 2: jQuery Operations</h2>
+
+        <!-- Change button text -->
+        <h3>Change Button Text (jQuery)</h3>
+        <button id="jQueryButton">Click me (jQuery)</button>
+
+        <!-- Set background-image -->
+        <h3>Set Background Image (jQuery)</h3>
+        <div id="jqueryBg"></div>
+        <button id="jQueryBgButton">Set Background Image</button>
+
+        <!-- Access HTML form data -->
+        <h3>Access Form Data (jQuery)</h3>
+        <form id="demoForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" value="Jane Doe">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="jane@example.com">
+            <button type="submit" id="jQueryFormButton">Get Form Data</button>
+        </form>
+        
+        <!-- Add attribute -->
+        <h3>Add Attribute (jQuery)</h3>
+        <p id="jQueryAttrElement">Hover over me after clicking the button.</p>
+        <button id="jQueryAttrButton">Add 'title' Attribute</button>
+
+    </div>
+
+    <!-- --------------------------------- -->
+    <!-- JAVASCRIPT CODE                   -->
+    <!-- --------------------------------- -->
+    <script>
+        // Get the message display area
+        const messageDisplay = document.getElementById('messageDisplay');
+        
+        function showMessage(msg) {
+            messageDisplay.innerHTML = msg;
+            messageDisplay.style.display = 'block';
+        }
+
+        // --- PART 1: PLAIN JAVASCRIPT ---
+
+        function accessElements() {
+            // 1. getElementById
+            const idElem = document.getElementById('byIdElement');
+            idElem.style.border = '2px solid red';
+
+            // 2. getElementsByTagName
+            // This returns an HTMLCollection (array-like)
+            const pTags = document.getElementsByTagName('p');
+            for (let i = 0; i < pTags.length; i++) {
+                pTags[i].style.fontStyle = 'italic';
+            }
+
+            // 3. getElementsByClassName
+            // This also returns an HTMLCollection
+            const classElems = document.getElementsByClassName('highlight-item');
+            for (let i = 0; i < classElems.length; i++) {
+                classElems[i].style.backgroundColor = '#cce5ff'; // Light blue
+            }
+            
+            showMessage("Accessed by ID (red border), all 'p' Tags (italic), and .highlight-item class (blue bg).");
+        }
+
+        function changeText() {
+            // 4. Change the text using innerHTML property
+            const elem = document.getElementById('textChangeElement');
+            elem.innerHTML = "<strong>Success!</strong> My text was changed using innerHTML.";
+            showMessage("Text changed using innerHTML.");
+        }
+
+        function changeStyles() {
+            // 5. Change the CSS properties
+            const elem = document.getElementById('styleChangeElement');
+            elem.style.color = 'white';
+            elem.style.backgroundColor = '#dc3545'; // Red
+            elem.style.position = 'relative';
+            elem.style.left = '20px';
+            elem.style.fontWeight = 'bold';
+            showMessage("CSS color, background-color, position, and font-weight changed.");
+        }
+
+        function changeImage() {
+            // 6. Change the image source
+            const img = document.getElementById('imageToChange');
+            const currentSrc = img.src;
+            
+            if (currentSrc.includes('Image+1')) {
+                img.src = 'https://placehold.co/150x150/28a745/white?text=Image+2';
+                showMessage("Image source changed to Image 2.");
+            } else {
+                img.src = 'https://placehold.co/150x150/007bff/white?text=Image+1';
+                showMessage("Image source changed back to Image 1.");
+            }
+        }
+
+        function addNode() {
+            // 7. Add a text node and attach it to a parent node
+            const parent = document.getElementById('parentNode');
+            const newText = document.createTextNode('This is a newly added text node. ');
+            parent.appendChild(newText);
+            showMessage("Appended a new text node to the dashed box.");
+        }
+
+        function deleteNode() {
+            // 8. Delete a node
+            const parent = document.getElementById('parentNode');
+            const child = document.getElementById('nodeToDelete');
+            if (child) {
+                parent.removeChild(child);
+                showMessage("Successfully deleted the red-boxed node.");
+            } else {
+                showMessage("The node has already been deleted.");
+            }
+        }
+
+
+        // --- PART 2: JQUERY ---
+        // We wrap jQuery code in $(document).ready() to ensure
+        // the DOM is fully loaded before we try to manipulate it.
+        $(document).ready(function() {
+
+            // 1. Change button text using jQuery
+            $('#jQueryButton').click(function() {
+                $(this).text('jQuery Changed Me!');
+                showMessage("jQuery changed the button text.");
+            });
+
+            // 2. Set background-image using jQuery CSS property
+            $('#jQueryBgButton').click(function() {
+                $('#jqueryBg').css({
+                    'background-image': 'url("https://placehold.co/600x150/555/eee?text=jQuery+Background!")'
+                }).html('<strong>Background Set!</strong>');
+                showMessage("jQuery set the background image.");
+            });
+
+            // 3. Access HTML form data using jQuery
+            $('#demoForm').submit(function(event) {
+                event.preventDefault(); // Stop form from actually submitting
+                const nameVal = $('#name').val();
+                const emailVal = $('#email').val();
+                
+                const message = `Form Data: Name = ${nameVal}, Email = ${emailVal}`;
+                $('#messageDisplay').text(message).show(); // Use jQuery show
+            });
+
+            // 4. Add attribute using jQuery
+            $('#jQueryAttrButton').click(function() {
+                $('#jQueryAttrElement').attr('title', 'This title was added by jQuery!');
+                showMessage("Added a 'title' attribute. Hover over the text to see it.");
+            });
+
+        });
+    </script>
+
+</body>
+</html>
