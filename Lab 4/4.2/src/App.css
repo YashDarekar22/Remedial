@@ -1,0 +1,67 @@
+/* src/App.css */
+
+/* --- Basic Setup --- */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+
+.App {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.App header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* --- This is the magic for responsiveness! --- */
+.product-gallery {
+  display: grid;
+  
+  /* This line does all the work:
+    - `repeat(auto-fill, ...)`: Create as many columns as can fit.
+    - `minmax(250px, 1fr)`: Make each column at least 250px wide.
+      If there's extra space, let them all grow equally (1fr).
+  */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px; /* This is the space between the cards */
+}
+
+/* --- Product Card Styling --- */
+.product-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Keeps the image corners rounded */
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px); /* Lifts the card up a bit */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-card-image {
+  width: 100%;
+  height: 250px; /* Fixed height for a uniform grid */
+  object-fit: cover; /* Prevents image stretching */
+  display: block;
+}
+
+.product-card-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 16px 16px 8px;
+}
+
+.product-card-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #007bff;
+  margin: 0 16px 16px;
+}
